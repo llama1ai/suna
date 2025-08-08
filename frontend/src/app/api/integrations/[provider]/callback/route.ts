@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+ 3vnqhz-codex/replace-docker-with-python-implementation
+const BACKEND_URL = process.env.BACKEND_URL;
+=======
 const BACKEND_URL = 'http://localhost:8000';
+ main
 
 export async function GET(
   request: NextRequest,

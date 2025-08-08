@@ -5,6 +5,10 @@ processes = []
 
 def main() -> None:
     try:
+ 3vnqhz-codex/replace-docker-with-python-implementation
+        backend = subprocess.Popen(["uv", "run", "api.py"], cwd="backend")
+        processes.append(backend)
+=======
  cbofvf-codex/replace-docker-with-python-implementation
         backend = subprocess.Popen(["uv", "run", "api.py"], cwd="backend")
         processes.append(backend)
@@ -15,6 +19,7 @@ def main() -> None:
         processes.append(backend)
         worker = subprocess.Popen(["uv", "run", "dramatiq", "run_agent_background"], cwd="backend")
         processes.append(worker)
+ main
  main
         frontend = subprocess.Popen(["npm", "run", "dev"], cwd="frontend")
         processes.append(frontend)
