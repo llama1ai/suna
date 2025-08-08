@@ -1,6 +1,3 @@
-from dotenv import load_dotenv
-load_dotenv()
-
 from fastapi import FastAPI, Request, HTTPException, Response, Depends, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -29,6 +26,7 @@ import sys
 from services import email_api
 from triggers import api as triggers_api
 from services import api_keys_api
+from run_agent_background import start_worker, stop_worker
 
 
 if sys.platform == "win32":
@@ -74,9 +72,11 @@ async def lifespan(app: FastAPI):
         credentials_api.initialize(db)
         template_api.initialize(db)
         composio_api.initialize(db)
-        
+
+        start_worker()
+
         yield
-        
+
         # Clean up agent resources
         logger.info("Cleaning up agent resources")
         await agent_api.cleanup()
@@ -88,6 +88,8 @@ async def lifespan(app: FastAPI):
             logger.info("Redis connection closed successfully")
         except Exception as e:
             logger.error(f"Error closing Redis connection: {e}")
+
+        stop_worker()
         
         # Clean up database connection
         logger.info("Disconnecting from database")
