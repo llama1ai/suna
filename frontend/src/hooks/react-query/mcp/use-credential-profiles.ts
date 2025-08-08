@@ -23,7 +23,7 @@ export interface CreateCredentialProfileRequest {
   is_default?: boolean;
 }
 
-const API_BASE = `${process.env.NEXT_PUBLIC_BACKEND_URL}/secure-mcp`;
+const API_BASE = `${'http://localhost:8000'}/secure-mcp`;
 
 async function fetchAllCredentialProfiles(): Promise<CredentialProfile[]> {
   const supabase = createClient();
