@@ -17,7 +17,11 @@ export async function POST(
       }
     });
     
+ 3vnqhz-codex/replace-docker-with-python-implementation
     const backendUrl = process.env.BACKEND_URL;
+=======
+    const backendUrl = 'http://localhost:8000';
+ main
     const targetUrl = `${backendUrl}/api/webhooks/trigger/${workflowId}`;
     
     console.log(`[Webhook Proxy] Backend URL: ${backendUrl}`);
@@ -72,7 +76,11 @@ export async function GET(
 ) {
   try {
     const { workflowId } = await params;
+ 3vnqhz-codex/replace-docker-with-python-implementation
     const backendUrl = process.env.BACKEND_URL;
+=======
+    const backendUrl = 'http://localhost:8000';
+ main
     
     const response = await fetch(`${backendUrl}/api/webhooks/test/${workflowId}`, {
       method: 'GET',

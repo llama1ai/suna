@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 async function sendWelcomeEmail(email: string, name?: string) {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const backendUrl = 'http://localhost:8000';
     const adminApiKey = process.env.KORTIX_ADMIN_API_KEY;
     
     if (!adminApiKey) {
