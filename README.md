@@ -33,7 +33,6 @@ Suna's powerful toolkit includes seamless browser automation to navigate the web
 - [Suna Architecture](#project-architecture)
   - [Backend API](#backend-api)
   - [Frontend](#frontend)
-  - [Agent Docker](#agent-docker)
   - [Supabase Database](#supabase-database)
 - [Use Cases](#use-cases)
 - [Self-Hosting](#self-hosting)
@@ -53,10 +52,6 @@ Python/FastAPI service that handles REST endpoints, thread management, and LLM i
 ### Frontend
 
 Next.js/React application providing a responsive UI with chat interface, dashboard, etc.
-
-### Agent Docker
-
-Isolated execution environment for every agent - with browser automation, code interpreter, file system access, tool integration, and security features.
 
 ### Supabase Database
 
@@ -95,7 +90,6 @@ Suna can be self-hosted on your own infrastructure using our comprehensive setup
 The setup process includes:
 
 - Setting up a Supabase project for database and authentication
-- Configuring Redis for caching and session management
 - Setting up Daytona for secure agent execution
 - Integrating with LLM providers (Anthropic, OpenAI, OpenRouter, etc.)
 - Configuring web search and scraping capabilities (Tavily, Firecrawl)
@@ -120,7 +114,7 @@ python setup.py
 
 The wizard will guide you through 14 steps with progress saving, so you can resume if interrupted.
 
-3. **Start or stop the containers**:
+3. **Start the services**:
 
 ```bash
 python start.py

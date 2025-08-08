@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
         headers[key] = value;
       }
     });
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8000';
+    const backendUrl = process.env.BACKEND_URL;
     const targetUrl = `${backendUrl}/triggers/qstash/webhook`;
     const response = await fetch(targetUrl, {
       method: 'POST',
