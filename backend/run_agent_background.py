@@ -1,33 +1,24 @@
-import dotenv
-dotenv.load_dotenv(".env")
-
 import sentry
 import asyncio
 import json
 import traceback
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Optional, Dict, Any
 from services import redis
 from agent.run import run_agent
 from utils.logger import logger, structlog
 import dramatiq
+from dramatiq.brokers.stub import StubBroker
+from dramatiq.worker import Worker
 import uuid
 from agentpress.thread_manager import ThreadManager
 from services.supabase import DBConnection
-from services import redis
-from dramatiq.brokers.redis import RedisBroker
-import os
 from services.langfuse import langfuse
 from utils.retry import retry
-
 import sentry_sdk
-from typing import Dict, Any
 
-redis_host = os.getenv('REDIS_HOST', 'redis')
-redis_port = int(os.getenv('REDIS_PORT', 6379))
-redis_broker = RedisBroker(host=redis_host, port=redis_port, middleware=[dramatiq.middleware.AsyncIO()])
-
-dramatiq.set_broker(redis_broker)
+broker = StubBroker(middleware=[dramatiq.middleware.AsyncIO()])
+dramatiq.set_broker(broker)
 
 
 _initialized = False
@@ -48,7 +39,6 @@ async def initialize():
 
 @dramatiq.actor
 async def check_health(key: str):
-    """Run the agent in the background using Redis for state."""
     structlog.contextvars.clear_contextvars()
     await redis.set(key, "healthy", ex=redis.REDIS_KEY_TTL)
 
@@ -68,7 +58,6 @@ async def run_agent_background(
     target_agent_id: Optional[str] = None,
     request_id: Optional[str] = None,
 ):
-    """Run the agent in the background using Redis for state."""
     structlog.contextvars.clear_contextvars()
     structlog.contextvars.bind_contextvars(
         agent_run_id=agent_run_id,
@@ -396,3 +385,14 @@ async def update_agent_run_status(
         return False
 
     return False
+
+
+worker = Worker(broker, [check_health, run_agent_background])
+
+
+def start_worker():
+    worker.start()
+
+
+def stop_worker():
+    worker.stop()

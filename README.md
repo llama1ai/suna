@@ -90,7 +90,6 @@ Suna can be self-hosted on your own infrastructure using our comprehensive setup
 The setup process includes:
 
 - Setting up a Supabase project for database and authentication
-- Configuring Redis for caching and session management
 - Setting up Daytona for secure agent execution
 - Integrating with LLM providers (Anthropic, OpenAI, OpenRouter, etc.)
 - Configuring web search and scraping capabilities (Tavily, Firecrawl)
