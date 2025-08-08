@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
 import { Input } from '@/components/ui/input';
 
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+const API_URL = 'http://localhost:8000';
 
 interface CustomMCPDialogProps {
   open: boolean;

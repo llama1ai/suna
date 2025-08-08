@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
 
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const API_URL = 'http://localhost:8000';
 
 interface OAuthIntegration {
   trigger_id: string;

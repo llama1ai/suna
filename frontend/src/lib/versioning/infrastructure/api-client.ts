@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/client';
 import { IApiClient } from '../repositories/interfaces';
 import { isFlagEnabled } from '@/lib/feature-flags';
 
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+const API_URL = 'http://localhost:8000';
 
 export class SupabaseApiClient implements IApiClient {
   private async getAuthHeaders(): Promise<Record<string, string>> {
