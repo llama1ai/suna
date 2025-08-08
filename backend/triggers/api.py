@@ -175,7 +175,7 @@ async def get_agent_triggers(
         trigger_service = get_trigger_service(db)
         triggers = await trigger_service.get_agent_triggers(agent_id)
         
-        base_url = os.getenv("WEBHOOK_BASE_URL", "http://localhost:8000")
+        base_url = os.getenv("WEBHOOK_BASE_URL")
         
         responses = []
         for trigger in triggers:
@@ -299,7 +299,7 @@ async def create_agent_trigger(
             description=request.description
         )
         
-        base_url = os.getenv("WEBHOOK_BASE_URL", "http://localhost:8000")
+        base_url = os.getenv("WEBHOOK_BASE_URL")
         webhook_url = f"{base_url}/api/triggers/{trigger.trigger_id}/webhook"
         
         return TriggerResponse(
@@ -341,7 +341,7 @@ async def get_trigger(
         
         await verify_agent_access(trigger.agent_id, user_id)
         
-        base_url = os.getenv("WEBHOOK_BASE_URL", "http://localhost:8000")
+        base_url = os.getenv("WEBHOOK_BASE_URL")
         webhook_url = f"{base_url}/api/triggers/{trigger_id}/webhook"
         
         return TriggerResponse(
@@ -390,7 +390,7 @@ async def update_trigger(
             is_active=request.is_active
         )
         
-        base_url = os.getenv("WEBHOOK_BASE_URL", "http://localhost:8000")
+        base_url = os.getenv("WEBHOOK_BASE_URL")
         webhook_url = f"{base_url}/api/triggers/{trigger_id}/webhook"
 
         return TriggerResponse(
